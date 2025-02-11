@@ -7,9 +7,9 @@ public class ScoreManager : MonoBehaviour
 {
     public TMP_Text scoreText;
     public int score = 0; //score starts at 0
-    public GameObject uiObject1;
-    public GameObject uiObject2;
-    private bool scoreStarted = false; //have not started keeping score
+    //public GameObject uiObject1;
+    //public GameObject uiObject2;
+    //private bool scoreStarted = false; //have not started keeping score
 
     public void Score(int point)
     {
@@ -17,6 +17,7 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = score.ToString(); //update text
     }
 
+    /*
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -43,4 +44,5 @@ public class ScoreManager : MonoBehaviour
             scoreStarted = true; //start keeping score when player enters trigger (the gate)
         }
     }
+    */
 }

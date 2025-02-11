@@ -48,7 +48,7 @@ public class EnemyAI : MonoBehaviour
         Vector3 direction = (player.position - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
 
-        if ((player.transform.position - transform.position).magnitude < 2.0f)
+        if ((player.transform.position - transform.position).magnitude < 0.5f)
         {
             SceneManager.LoadScene("LoseEnding"); // load (lose)ending scene when caught by ghosts
         }
