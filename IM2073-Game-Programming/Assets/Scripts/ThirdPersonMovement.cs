@@ -1,3 +1,4 @@
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class ThirdPersonMovement : MonoBehaviour
@@ -10,12 +11,22 @@ public class ThirdPersonMovement : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
+    private Animator animator;
+    private string currentAnimation = "";
+
+    private Vector3 direction;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     // Update is called once per frame
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        direction = new Vector3(horizontal, 0f, vertical).normalized;
 
         if (direction.magnitude >= 0.1f)
         {
@@ -25,6 +36,29 @@ public class ThirdPersonMovement : MonoBehaviour
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.SimpleMove(moveDir.normalized * speed * Time.deltaTime);
+        }
+
+        CheckAnimation();
+    }
+
+    private void CheckAnimation()
+    {
+        if (direction.magnitude >= 0.1f)
+        {
+            ChangeAnimation("Run");
+        }
+        else
+        {
+            ChangeAnimation("Idle");
+        }
+    } 
+
+    private void ChangeAnimation(string animation, float crossfade = 0.2f)
+    {
+        if (currentAnimation !=  animation)
+        {
+            currentAnimation = animation;
+            animator.CrossFade(animation, crossfade);
         }
     }
 }
