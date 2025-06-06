@@ -7,6 +7,10 @@ public class ShowUI : MonoBehaviour
     public GameObject uiObject;
     public bool isInRange = false; //check if player is within interactable range
 
+    public static GameObject currentActiveUI;
+
+    private Coroutine hideCoroutine;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,11 +22,24 @@ public class ShowUI : MonoBehaviour
     {
         if (isInRange)
         {
-            if (uiObject != null) 
+            // If there's a different active UI, destroy it first
+            if (currentActiveUI != null && currentActiveUI != uiObject)
+            {
+                Destroy(currentActiveUI);
+            }
+
+            // Show this UI if it's not already active
+            if (currentActiveUI != uiObject)
             {
                 uiObject.SetActive(true);
-                StartCoroutine("WaitForSec");
-              
+                currentActiveUI = uiObject;
+
+                // Start coroutine to hide after 8 seconds
+                if (hideCoroutine != null)
+                {
+                    StopCoroutine(hideCoroutine);
+                }
+                hideCoroutine = StartCoroutine(WaitForSec());
             }
         }
     }
@@ -44,6 +61,13 @@ public class ShowUI : MonoBehaviour
     IEnumerator WaitForSec()
     {
         yield return new WaitForSeconds(8);
-        Destroy(uiObject);
+        if (uiObject != null)
+        {
+            Destroy(uiObject);
+            if (currentActiveUI == uiObject)
+            {
+                currentActiveUI = null;
+            }
+        }
     }
 }

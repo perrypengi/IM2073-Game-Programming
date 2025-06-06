@@ -6,7 +6,9 @@ public class ThirdPersonMovement : MonoBehaviour
     public CharacterController controller;
     public Transform cam;
 
-    public float speed = 6f;
+    [SerializeField]
+    public float speed = 6.4f;
+    [SerializeField]
 
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
