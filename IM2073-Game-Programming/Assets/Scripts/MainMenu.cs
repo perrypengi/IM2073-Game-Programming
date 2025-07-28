@@ -11,4 +11,9 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit(); //quit application
     }
+
+    public void ReturnMainMenu()
+    {
+        SceneManager.LoadScene("Start"); //load main game scene
+    }
 }
